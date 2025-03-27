@@ -1,0 +1,19 @@
+{
+  "exercises": [
+    {
+      "id": "1",
+      "title": "Приседания",
+      "completed": true
+    },
+    {
+      "id": "2",
+      "title": "Отжимания",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "title": "Подтягивания",
+      "completed": false
+    }
+  ]
+}
