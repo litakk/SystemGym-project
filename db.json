@@ -1,18 +1,23 @@
 {
   "exercises": [
     {
-      "id": "1",
-      "title": "Приседания",
+      "id": "1743134153321",
+      "title": "Отжимания",
       "completed": true
     },
     {
-      "id": "2",
-      "title": "Отжимания",
+      "id": "1743137446188",
+      "title": "Приседания",
       "completed": false
     },
     {
-      "id": "3",
-      "title": "Подтягивания",
+      "id": "1743137460718",
+      "title": "Отдых",
+      "completed": true
+    },
+    {
+      "id": "1743137728987",
+      "title": "Турник",
       "completed": false
     }
   ]

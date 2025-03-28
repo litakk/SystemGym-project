@@ -2,30 +2,42 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "./Darkbtn";
 import { method, useApi } from "./hooks/useApi";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 interface ExerciseFormProps {}
 
 const ExerciseForm: React.FC<ExerciseFormProps> = () => {
   const [input, setInput] = useState("");
   const [compl, setCompl] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus(); 
+  }, []);
+
+
   const { fetchData } = useApi(import.meta.env.VITE_PUBLIC_PATH);
 
-  const Submit = (e: Reac.FormEvent) => {
-    e.preventDefault()
+  const Submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if(!input.trim()) return;
+
     const AddExercise = {
       id: String(Date.now()),
       title: input,
       completed: compl,
     };
-
-    fetchData("/exercises", method.post, AddExercise)
-      .then(() => {
-        setInput("");
-        setCompl(false)
-      })
-      .catch((err: unknown) => console.error("Ошибка при добавлении", err));
-    console.log(input);
+  
+    try {
+      await fetchData("/exercises", method.post, AddExercise); // Ждем завершения запроса
+      setInput("");
+      setCompl(false);
+      inputRef.current?.focus();
+    } catch (err) {
+      console.error("Ошибка при добавлении", err);
+    }
   };
+  
 
   return (
     <div className="w-full p-7">
@@ -45,6 +57,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = () => {
         />
 
         <Input
+          ref={inputRef}
           type="text"
           placeholder="Введите упражнение..."
           onChange={(e) => setInput(e.target.value)}
